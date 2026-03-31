@@ -41,23 +41,69 @@ Your site's local dev server must be runnable before starting a session.
 ```
 claude-design-runbook/
 ├── README.md                      ← you are here
-├── DESIGN-HARNESS-RUNBOOK.md      ← step-by-step process guide
-├── design-criteria-template.md    ← copy this into your target repo and fill in
+├── DESIGN-HARNESS-RUNBOOK.md      ← step-by-step process guide (manual approach)
+├── design-criteria-template.md    ← standalone template (for manual use)
 ├── CHANGELOG.md                   ← version history of this process
+├── .claude/skills/design-harness/ ← reusable Claude Code skill
+│   ├── SKILL.md                   ← skill entry point
+│   ├── scoring-rubric.md          ← detailed scoring criteria and guides
+│   ├── design-criteria-template.md← template used for scaffolding
+│   └── design-log-template.md     ← iteration log entry format
 └── examples/
     └── (design-log examples added after real runs)
 ```
 
 ---
 
-## How To Use This On A New Project
+## Option A — Use as a Claude Code Skill (Recommended)
+
+Install the skill once and use `/design-harness` from any project.
+
+### Install
+
+Copy the skill to your personal skills directory:
+
+```bash
+# Clone this repo (if you haven't already)
+git clone https://github.com/johnfmorton/claude-design-runbook.git
+
+# Copy the skill to your personal Claude Code skills
+cp -r claude-design-runbook/.claude/skills/design-harness ~/.claude/skills/
+```
+
+### Use
+
+Open any website project in Claude Code and run:
+
+```
+/design-harness
+```
+
+The skill will prompt you for site details, scaffold `design-criteria.md`
+and `design-log.md` if they don't exist, append Design Improvement Mode to
+your `CLAUDE.md`, and start the generator/evaluator loop.
+
+You can also pass arguments to skip the prompts:
+
+```
+/design-harness https://mysite.com "npm run dev" http://localhost:3000
+```
+
+To resume a previous session, just run `/design-harness` again — if
+`design-log.md` has existing entries, the skill picks up where it left off.
+
+---
+
+## Option B — Use the Manual Runbook
+
+If you prefer the step-by-step approach without installing a skill:
 
 1. Copy `DESIGN-HARNESS-RUNBOOK.md` into your site's project root
 2. Copy `design-criteria-template.md` into your site's project root,
    rename it `design-criteria.md`, and fill in the Site Context section
 3. Follow the steps in `DESIGN-HARNESS-RUNBOOK.md`
 
-That's it. The runbook is self-contained from that point.
+The runbook is self-contained from that point.
 
 ---
 
